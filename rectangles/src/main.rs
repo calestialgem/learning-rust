@@ -12,6 +12,14 @@ impl Rectangle {
     fn fits_in(&self, outer: &Rectangle) -> bool {
         self.width <= outer.width && self.height <= outer.height
     }
+
+    // associated function that is not a method
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
+    }
 }
 
 fn main() {
@@ -23,10 +31,7 @@ fn main() {
         width: 10,
         height: 40,
     };
-    let rect3 = Rectangle {
-        width: 60,
-        height: 45,
-    };
+    let rect3 = Rectangle::square(45);
 
     println!(
         "{:?} {} hold {:?}.",
