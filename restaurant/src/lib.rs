@@ -11,8 +11,10 @@ mod front_of_house {
     }
 }
 
-// Cannot access front_of_house or anything inside it by default!
+// Can access the public members of the front_of_house, which is private,
+// because they are siblings.
 pub fn eat_at_restaurant() {
+    self::front_of_house::hosting::add_to_waitlist();
     crate::front_of_house::hosting::add_to_waitlist();
     front_of_house::hosting::add_to_waitlist();
 }
