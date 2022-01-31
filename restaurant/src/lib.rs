@@ -6,8 +6,7 @@ mod front_of_house {
     }
 }
 
-use self::front_of_house::hosting;
-pub use self::front_of_house::hosting::Visitors as Group;
+use self::front_of_house::hosting::{self, Visitors as Group};
 
 pub fn eat_at_restaurant() {
     hosting::add_to_waitlist(Group(3));
