@@ -1,13 +1,15 @@
 fn main() {
-    println!("{}", no_dangle());
+    let s = String::from("hello world");
+    let word = first_word(&s);
+    println!("First word in '{}' is '{}'.", s, word);
 }
 
-// fn dangle() -> &String {
-//     let s = String::from("hello");
-//     &s
-// }
-
-fn no_dangle() -> String {
-    let s = String::from("hello");
-    s
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[..i];
+        }
+    }
+    &s[..]
 }
