@@ -15,16 +15,25 @@ fn build_user(email: String, username: String) -> User {
 }
 
 fn main() {
-    let mut user1 = build_user(
+    let user1 = build_user(
         String::from("someone@example.com"),
         String::from("someusername123"),
     );
-    user1.email = String::from("anotheremail@example.com");
+    let user2 = User {
+        active: user1.active,
+        username: user1.username,
+        email: String::from("another@example.com"),
+        sign_in_count: user1.sign_in_count,
+    };
+    let user3 = User {
+        email: String::from("anotheremail@example.com"),
+        ..user2 // struct update syntax
+    };
     println!(
         "User: {} <{}> ({}) {}",
-        user1.username,
-        user1.email,
-        user1.sign_in_count,
-        if user1.active { "Online" } else { "Offline" }
+        user3.username,
+        user3.email,
+        user3.sign_in_count,
+        if user3.active { "Online" } else { "Offline" }
     );
 }
