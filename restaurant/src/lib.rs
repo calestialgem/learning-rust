@@ -1,20 +1,15 @@
-mod front_of_house {
-    pub mod hosting {
-        // hosting can access front_of_house, but not the other way around.
-        pub fn add_to_waitlist() {}
-        fn seat_at_table() {}
-    }
-    mod serving {
-        fn take_order() {}
-        fn serve_order() {}
-        fn take_payment() {}
-    }
-}
+// in create
+fn serve_order() {}
 
-// Can access the public members of the front_of_house, which is private,
-// because they are siblings.
-pub fn eat_at_restaurant() {
-    self::front_of_house::hosting::add_to_waitlist();
-    crate::front_of_house::hosting::add_to_waitlist();
-    front_of_house::hosting::add_to_waitlist();
+// in crate
+mod back_of_house {
+    // in crate::back_of_house
+    // thus super means crate
+    fn fix_incorrect_order() {
+        cook_order();
+        // access crate::serve_order by goin up by one
+        super::serve_order();
+    }
+
+    fn cook_order() {}
 }
