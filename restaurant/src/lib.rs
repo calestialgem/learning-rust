@@ -1,10 +1,4 @@
-mod front_of_house {
-    pub mod hosting {
-        pub struct Visitors(pub u32);
-
-        pub fn add_to_waitlist(group: Visitors) {}
-    }
-}
+mod front_of_house;
 
 use self::front_of_house::hosting::{self, *};
 
