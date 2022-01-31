@@ -11,7 +11,7 @@ enum DaysOfWeek {
 
 impl DaysOfWeek {
     fn print(&self) {
-        println!("Day: {:?}", self);
+        println!(" [*] {:?}", self);
     }
 }
 
@@ -19,10 +19,7 @@ fn main() {
     use DaysOfWeek::*;
     let open_on = vec![Monday, Tuesday, Thursday, Friday, Saturday];
     println!("Our shop is open on:");
-    for i in 0..10 {
-        match open_on.get(i) {
-            Some(d) => d.print(),
-            None => println!("The index, {}, is out of bounds!", i),
-        }
+    for d in &open_on {
+        d.print();
     }
 }
