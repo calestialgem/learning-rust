@@ -1,7 +1,25 @@
+#[derive(Debug)]
+enum DaysOfWeek {
+    Monday,
+    Tuesday,
+    Wednesdey,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
+}
+
+impl DaysOfWeek {
+    fn print(&self) {
+        println!("Day: {:?}", self);
+    }
+}
+
 fn main() {
-    let mut v = Vec::new();
-    v.push(5);
-    v.push(6);
-    v.push(7);
-    v.push(8);
+    use DaysOfWeek::*;
+    let open_on = vec![Monday, Tuesday, Thursday, Friday, Saturday];
+    println!("Our shop is open on:");
+    for i in 0..5 {
+        open_on[i].print();
+    }
 }
