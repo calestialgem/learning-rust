@@ -4,6 +4,14 @@ struct Rectangle {
     height: u32,
 }
 
+// implementation block
+impl Rectangle {
+    fn area(&self) -> u32 {
+        // automatic dereferencing
+        self.width * self.height
+    }
+}
+
 fn main() {
     let rect1 = Rectangle {
         width: 30,
@@ -13,11 +21,6 @@ fn main() {
     println!(
         "The area of the rectangle {:?} is {} square pixels.",
         rect1,
-        area(&rect1)
+        rect1.area() // automatic referencing
     );
-    dbg!(&rect1);
-}
-
-fn area(rect: &Rectangle) -> u32 {
-    rect.width * rect.height
 }
