@@ -19,7 +19,10 @@ fn main() {
     use DaysOfWeek::*;
     let open_on = vec![Monday, Tuesday, Thursday, Friday, Saturday];
     println!("Our shop is open on:");
-    for i in 0..5 {
-        open_on[i].print();
+    for i in 0..10 {
+        match open_on.get(i) {
+            Some(d) => d.print(),
+            None => println!("The index, {}, is out of bounds!", i),
+        }
     }
 }
