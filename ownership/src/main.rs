@@ -1,16 +1,17 @@
 fn main() {
-    let s = String::from("hello");
-    takes_ownership(s);
-    // the string is invalid: it is moved from
-    let x = 5;
-    makes_copy(x);
-    // the number is still valid
-} // the number, then the string, are out of scope, but nothing is dropped
+    let s1 = gives_ownership();
+    let s2 = String::from("hello");
+    let s3 = takes_and_gives_back(s2);
+    // s2 is moved out from, it is invalid
+} // s3, then s2 are dropped
 
-fn takes_ownership(some_string: String) {
-    println!("{}", some_string);
-} // the string is dropped here
+fn gives_ownership() -> String {
+    let some_string = String::from("yours");
+    some_string
+    // the string is moved out to the calling function
+} // it is not dropped here as it is invalid
 
-fn makes_copy(some_integer: i32) {
-    println!("{}", some_integer);
-}
+fn takes_and_gives_back(a_string: String) -> String {
+    a_string
+    // the string is moved out to the calling function
+} // it is not dropped here as it is invalid
