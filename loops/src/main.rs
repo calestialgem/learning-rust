@@ -2,13 +2,11 @@ fn main() {
     let result = {
         let mut counter = 0;
         let mut accumulator = 0;
-        loop {
+        while counter != 10 {
             counter += 1;
             accumulator += counter;
-            if counter == 10 {
-                break accumulator;
-            }
         }
+        accumulator
     };
 
     println!("The result is: {}", result);
