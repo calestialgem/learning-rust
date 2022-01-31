@@ -1,20 +1,15 @@
 fn main() {
-    let mut count = 0;
-    'counting_loop: loop {
-        println!("count = {}", count);
-        let mut remaining = 10;
-
+    let result = {
+        let mut counter = 0;
+        let mut accumulator = 0;
         loop {
-            println!("remaining = {}", remaining);
-            if remaining == 9 {
-                break;
+            counter += 1;
+            accumulator += counter;
+            if counter == 10 {
+                break accumulator;
             }
-            if count == 2 {
-                break 'counting_loop;
-            }
-            remaining -= 1;
         }
-        count += 1;
-    }
-    println!("End count = {}", count);
+    };
+
+    println!("The result is: {}", result);
 }
