@@ -1,5 +1,12 @@
 fn main() {
     let name = String::from("Cem Geçgel");
-    println!("{}", &name[6..8]);
-    println!("{}", &name[6..7]);
+    println!("String: {}", name);
+    println!("Characters:");
+    for c in name.chars() {
+        println!(" [*] {}", c);
+    }
+    println!("Bytes:");
+    for b in name.bytes() {
+        println!(" [*] {}", b);
+    }
 }
