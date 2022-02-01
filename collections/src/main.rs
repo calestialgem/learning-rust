@@ -19,11 +19,10 @@ fn main() {
     );
     work_time.insert(String::from("Half-Time"), vec![Saturday]);
     work_time.insert(String::from("Never"), vec![Wednesdey, Sunday]);
-    for days in &work_time {
-        print!("Working {} in ", days.0);
-        for d in days.1 {
-            print!("{:?} ", d);
+    println!("Working full-time in: ");
+    if let Some(days) = work_time.get(&String::from("Full-Time")) {
+        for d in days {
+            println!(" [*] {:?}", d);
         }
-        println!(".");
     }
 }
