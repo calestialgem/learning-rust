@@ -19,6 +19,13 @@ fn main() {
     );
     work_time.insert(String::from("Half-Time"), vec![Saturday]);
     work_time.insert(String::from("Never"), vec![Wednesdey, Sunday]);
+    let free_days = work_time
+        .get(&String::from("Never"))
+        .expect("Working time 'never', is not provided.");
+    for d in free_days {
+        print!("{:?} ", d);
+    }
+    println!("are free for me!");
     println!("Working full-time in: ");
     if let Some(days) = work_time.get(&String::from("Full-Time")) {
         for d in days {
