@@ -33,7 +33,7 @@ fn print_all(weekly: &HashMap<&str, i32>) {
 
 fn overwriting_a_value(weekly: &mut HashMap<&str, i32>) {
     weekly.insert("Monday", 17);
-    print("Monday", &weekly);
+    print("Monday", weekly);
 }
 
 fn only_inserting_a_value_if_the_key_has_no_value(weekly: &mut HashMap<&str, i32>) {
