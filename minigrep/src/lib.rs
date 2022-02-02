@@ -9,13 +9,18 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Config, &str> {
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
+    pub fn new(mut args: env::Args) -> Result<Config, &'static str> {
+        args.next();
 
-        let query = args[1].clone();
-        let filename = args[2].clone();
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
+
+        let filename = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a file name"),
+        };
         let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
 
         Ok(Config {
@@ -63,25 +68,6 @@ pub fn search_case_insensetive<'a>(query: &str, contents: &'a str) -> Vec<&'a st
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn three_arguments() {
-        let args = [
-            String::from("running from test"),
-            String::from("Hello"),
-            String::from("World"),
-        ];
-        let config = Config::new(&args).expect("Could not create config?");
-        assert_eq!(args[1], config.query);
-        assert_eq!(args[2], config.filename);
-    }
-
-    #[test]
-    #[should_panic(expected = "not enough arguments")]
-    fn less_than_three_arguments() {
-        let args = [String::from("Hello")];
-        Config::new(&args).unwrap();
-    }
 
     #[test]
     fn case_sensitive() {
