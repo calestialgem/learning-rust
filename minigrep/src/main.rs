@@ -9,7 +9,10 @@ fn main() {
         println!("Problem parsing arguments: {}", err);
         process::exit(1);
     });
+    run(config);
+}
 
+fn run(config: Config) {
     println!("Searching for {}", config.query);
     println!("In file {}", config.filename);
 
