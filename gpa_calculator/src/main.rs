@@ -155,7 +155,7 @@ impl Overall {
     fn print(&self) {
         print!("[Overall] Credits: {}, Points: ", self.credits);
         self.points.round().print();
-        print!(", SPA: ");
+        print!(", GPA: ");
         self.average.round().print();
         println!();
     }
@@ -163,7 +163,7 @@ impl Overall {
 
 fn main() {
     use Grade::*;
-    let fall_18 = Semester::new(
+    let semesters = [Semester::new(
         String::from("2018/2019-1"),
         &[
             Course::new(Ba, 4),
@@ -172,6 +172,10 @@ fn main() {
             Course::new(Aa, 4),
             Course::new(Ba, 4),
         ],
-    );
-    fall_18.print();
+    )];
+    let overall = Overall::new(&semesters);
+    for semester in semesters {
+        semester.print();
+    }
+    overall.print();
 }
