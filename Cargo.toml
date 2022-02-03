@@ -16,9 +16,10 @@ members = [
     "minigrep",
     "option_enum",
     "ownership",
+    "pointers",
     "rectangles",
     "restaurant",
     "strings",
     "structs",
-    "variables"
+    "variables",
 ]
