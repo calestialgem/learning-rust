@@ -1,3 +1,36 @@
+struct Points {
+    whole: u32,
+    fraction: u32,
+}
+
+impl Points {
+    const scale: u32 = 1000;
+    const half: u32 = Self::scale / 2;
+
+    fn new(whole: u32, fraction: u32) -> Self {
+        Self {
+            whole: whole + fraction / Self::scale,
+            fraction: fraction % Self::scale,
+        }
+    }
+
+    fn as_fraction(&self) -> u32 {
+        self.whole * Self::scale + self.fraction
+    }
+
+    fn add(&self, other: &Self) -> Self {
+        Self::new(self.whole + other.whole, self.fraction + other.fraction)
+    }
+
+    fn mul(&self, other: &Self) -> Self {
+        Self::new(0, self.as_fraction() * other.as_fraction() / Self::scale)
+    }
+
+    fn div(&self, other: u32) -> Self {
+        Self::new(0, self.as_fraction() / other)
+    }
+}
+
 enum Grade {
     Aa,
     Ba,
@@ -12,13 +45,13 @@ enum Grade {
 impl Grade {
     fn points(&self) -> u32 {
         match *self {
-            Grade::Aa => 400,
-            Grade::Ba => 350,
-            Grade::Bb => 300,
-            Grade::Cb => 250,
-            Grade::Cc => 200,
-            Grade::Dc => 150,
-            Grade::Dd => 100,
+            Grade::Aa => 4000,
+            Grade::Ba => 3500,
+            Grade::Bb => 3000,
+            Grade::Cb => 2500,
+            Grade::Cc => 2000,
+            Grade::Dc => 1500,
+            Grade::Dd => 1000,
             Grade::F => 0,
         }
     }
@@ -63,7 +96,7 @@ impl Semester {
 
     fn print(&self) {
         println!(
-            "[{}] Credits: {}, Points: {}, SPA: {}",
+            "[{}] Credits: {}, Points: {}.{}, SPA: {}",
             self.name, self.credits, self.points, self.average
         );
     }
@@ -99,5 +132,16 @@ impl Overall {
 }
 
 fn main() {
-    println!("Hello, world!");
+    use Grade::*;
+    let fall_18 = Semester::new(
+        String::from("2018/2019-1"),
+        &[
+            Course::new(Ba, 4),
+            Course::new(Aa, 3),
+            Course::new(Aa, 3),
+            Course::new(Aa, 4),
+            Course::new(Ba, 4),
+        ],
+    );
+    fall_18.print();
 }
