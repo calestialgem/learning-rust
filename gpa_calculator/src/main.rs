@@ -1,5 +1,4 @@
 struct Points {
-    whole: u32,
     fraction: u32,
 }
 
@@ -10,46 +9,51 @@ impl Points {
 
     const fn new(whole: u32, fraction: u32) -> Self {
         Self {
-            whole: whole + fraction / Self::SCALE,
-            fraction: fraction % Self::SCALE,
+            fraction: whole * Self::SCALE + fraction,
         }
     }
 
-    fn as_fraction(&self) -> u32 {
-        self.whole * Self::SCALE + self.fraction
-    }
-
     fn add(&self, other: &Self) -> Self {
-        Self::new(self.whole + other.whole, self.fraction + other.fraction)
+        Self {
+            fraction: self.fraction + other.fraction,
+        }
     }
 
     fn mul(&self, scalar: u32) -> Self {
-        Self::new(0, self.as_fraction() * scalar)
+        Self {
+            fraction: self.fraction * scalar,
+        }
     }
 
     fn div(&self, scalar: u32) -> Self {
-        Self::new(0, self.as_fraction() / scalar)
+        Self {
+            fraction: self.fraction / scalar,
+        }
     }
 
     fn round(&self) -> Self {
         let round_up = self.fraction % 10 >= 5;
         let tens = self.fraction / 10 + round_up as u32;
-        Self::new(self.whole, tens * 10)
+        Self {
+            fraction: tens * 10,
+        }
     }
 
     fn print(&self) {
-        if self.fraction == 0 {
-            print!("{}", self.whole);
+        let whole = self.fraction / Self::SCALE;
+        let fraction = self.fraction % Self::SCALE;
+        if fraction == 0 {
+            print!("{}", whole);
         } else {
             let mut scale = Self::SCALE;
             loop {
                 scale /= 10;
                 if scale < 10 {
-                    print!("{}.{}", self.whole, self.fraction);
+                    print!("{}.{}", whole, fraction);
                     break;
                 }
-                if self.fraction % scale == 0 {
-                    print!("{}.{}", self.whole, self.fraction / scale);
+                if fraction % scale == 0 {
+                    print!("{}.{}", whole, fraction / scale);
                     break;
                 }
             }
