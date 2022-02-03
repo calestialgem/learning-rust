@@ -25,4 +25,29 @@ fn main() {
         &y, // short of y.deref()
         y.deref()
     );
+    // Here we have a real string. To test the deref coercion we box it. The
+    // compiler makes the conversion to &String as we call the function with a
+    // &MyBox<String>. This is called implicit deref coercion.
+    let real = "Rust";
+    let plain = String::from(real);
+    let boxed = MyBox::new(plain.clone());
+    hello(&plain); // 'normal' call
+    hello(&boxed); // implicit deref coercion
+    hello(boxed.deref()); // the explicit version of above
+
+    // The String is actually also converted to &str.
+    hello(real); // real normal call
+    hello(boxed.deref().deref()); // fully explicit version
+                                  // &MyBox<String> -> &String -> &str
+
+    hello(&(*boxed)[..]); // or without deref()
+                          // the boxed is moved out here
+                          // for some reason I don't understand
+
+    // In the end, the compiler calls deref as much as necessary in
+    // compilation, which is a lot simpler.
+}
+
+fn hello(name: &str) {
+    println!("Hello, {}!", name);
 }
