@@ -163,16 +163,73 @@ impl Overall {
 
 fn main() {
     use Grade::*;
-    let semesters = [Semester::new(
-        String::from("2018/2019-1"),
-        &[
-            Course::new(Ba, 4),
-            Course::new(Aa, 3),
-            Course::new(Aa, 3),
-            Course::new(Aa, 4),
-            Course::new(Ba, 4),
-        ],
-    )];
+    let semesters = [
+        Semester::new(
+            String::from("2018/2019-1"),
+            &[
+                Course::new(Ba, 4),
+                Course::new(Aa, 3),
+                Course::new(Aa, 3),
+                Course::new(Aa, 4),
+                Course::new(Ba, 4),
+            ],
+        ),
+        Semester::new(
+            String::from("2018/2019-2"),
+            &[
+                Course::new(Aa, 3),
+                Course::new(Aa, 3),
+                Course::new(Aa, 4),
+                Course::new(Aa, 3),
+                Course::new(Aa, 4),
+            ],
+        ),
+        Semester::new(
+            String::from("2019/2020-1"),
+            &[
+                Course::new(Ba, 3),
+                Course::new(Ba, 4),
+                Course::new(Ba, 3),
+                Course::new(Cb, 3),
+                Course::new(Bb, 4),
+                Course::new(Aa, 2),
+            ],
+        ),
+        Semester::new(
+            String::from("2019/2020-2"),
+            &[Course::new(Ba, 4), Course::new(Ba, 3)],
+        ),
+        Semester::new(
+            String::from("2020/2021-1"),
+            &[
+                Course::new(Aa, 2),
+                Course::new(Aa, 3),
+                Course::new(Ba, 3),
+                Course::new(Bb, 4),
+                Course::new(Aa, 3),
+            ],
+        ),
+        Semester::new(
+            String::from("2020/2021-2"),
+            &[
+                Course::new(Aa, 2),
+                Course::new(Aa, 3),
+                Course::new(Aa, 4),
+                Course::new(Aa, 4),
+                Course::new(Ba, 4),
+            ],
+        ),
+        Semester::new(
+            String::from("2021/2022-1"),
+            &[
+                Course::new(Aa, 4),
+                Course::new(Aa, 4),
+                Course::new(Aa, 4),
+                Course::new(Aa, 3),
+                Course::new(Ba, 3),
+            ],
+        ),
+    ];
     let overall = Overall::new(&semesters);
     for semester in semesters {
         semester.print();
