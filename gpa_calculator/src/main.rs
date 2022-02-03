@@ -60,6 +60,13 @@ impl Semester {
             average: points / credits,
         }
     }
+
+    fn print(&self) {
+        println!(
+            "[{}] Credits: {}, Points: {}, SPA: {}",
+            self.name, self.credits, self.points, self.average
+        );
+    }
 }
 
 struct Overall {
@@ -81,6 +88,13 @@ impl Overall {
             points,
             average: points / credits,
         }
+    }
+
+    fn print(&self) {
+        println!(
+            "[Overall] Credits: {}, Points: {}, GPA: {}",
+            self.credits, self.points, self.average
+        );
     }
 }
 
