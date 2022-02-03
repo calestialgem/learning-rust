@@ -16,4 +16,6 @@ fn main() {
         data: String::from("other stuff"),
     };
     println!("CustomSmartPointers created.");
+    drop(c);
+    println!("End of main.");
 }
