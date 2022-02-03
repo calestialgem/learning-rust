@@ -24,6 +24,20 @@ impl Grade {
     }
 }
 
+struct Course {
+    credits: u32,
+    points: u32,
+}
+
+impl Course {
+    fn new(grade: Grade, credits: u32) -> Self {
+        Course {
+            credits,
+            points: grade.points() * credits,
+        }
+    }
+}
+
 fn main() {
     println!("Hello, world!");
 }
