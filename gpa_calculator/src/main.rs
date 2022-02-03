@@ -42,7 +42,7 @@ struct Semester {
     name: String,
     credits: u32,
     points: u32,
-    spa: u32,
+    average: u32,
 }
 
 impl Semester {
@@ -57,7 +57,29 @@ impl Semester {
             name,
             credits,
             points,
-            spa: points / credits,
+            average: points / credits,
+        }
+    }
+}
+
+struct Overall {
+    credits: u32,
+    points: u32,
+    average: u32,
+}
+
+impl Overall {
+    fn new(semesters: &[Semester]) -> Self {
+        let mut credits = 0;
+        let mut points = 0;
+        for semester in semesters {
+            credits += semester.credits;
+            points += semester.points;
+        }
+        Overall {
+            credits,
+            points,
+            average: points / credits,
         }
     }
 }
