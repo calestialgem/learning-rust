@@ -12,13 +12,13 @@ enum Grade {
 impl Grade {
     fn points(&self) -> u32 {
         match *self {
-            Grade::Aa => 40,
-            Grade::Ba => 35,
-            Grade::Bb => 30,
-            Grade::Cb => 25,
-            Grade::Cc => 20,
-            Grade::Dc => 15,
-            Grade::Dd => 10,
+            Grade::Aa => 400,
+            Grade::Ba => 350,
+            Grade::Bb => 300,
+            Grade::Cb => 250,
+            Grade::Cc => 200,
+            Grade::Dc => 150,
+            Grade::Dd => 100,
             Grade::F => 0,
         }
     }
@@ -34,6 +34,30 @@ impl Course {
         Course {
             credits,
             points: grade.points() * credits,
+        }
+    }
+}
+
+struct Semester {
+    name: String,
+    credits: u32,
+    points: u32,
+    spa: u32,
+}
+
+impl Semester {
+    fn new(name: String, courses: &[Course]) -> Self {
+        let mut credits = 0;
+        let mut points = 0;
+        for course in courses {
+            credits += course.credits;
+            points += course.points;
+        }
+        Semester {
+            name,
+            credits,
+            points,
+            spa: points / credits,
         }
     }
 }
