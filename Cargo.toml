@@ -8,6 +8,7 @@ members = [
     "collections",
     "concepts",
     "functions",
+    "gpa_calculator",
     "guessing_game",
     "hello_cargo",
     "ip_addresses",
