@@ -11,6 +11,7 @@ members = [
     "gpa_calculator",
     "guessing_game",
     "gui",
+    "hello",
     "hello_cargo",
     "ip_addresses",
     "loops",
