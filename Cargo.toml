@@ -22,5 +22,6 @@ members = [
     "restaurant",
     "strings",
     "structs",
+    "threads",
     "variables",
 ]
