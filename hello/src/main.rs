@@ -14,7 +14,7 @@ fn con_req(mut con: TcpStream) {
     let mut buf = [0; 1024];
     let len = con.read(&mut buf).unwrap();
 
-    let contents = fs::read_to_string("hello.html").unwrap();
+    let contents = fs::read_to_string("hello/hello.html").unwrap();
 
     let response = format!(
         "HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}",
