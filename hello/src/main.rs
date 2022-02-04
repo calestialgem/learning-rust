@@ -1,3 +1,4 @@
+use std::fs;
 use std::io::prelude::*;
 use std::net::{TcpListener, TcpStream};
 
@@ -9,11 +10,18 @@ fn main() {
     }
 }
 
-fn con_req(mut req: TcpStream) {
+fn con_req(mut con: TcpStream) {
     let mut buf = [0; 1024];
-    let len = req.read(&mut buf).unwrap();
+    let len = con.read(&mut buf).unwrap();
 
-    let response = "HTTP/1.1 200 OK\r\n\r\n";
-    req.write_all(response.as_bytes()).unwrap();
-    req.flush().unwrap();
+    let contents = fs::read_to_string("hello.html").unwrap();
+
+    let response = format!(
+        "HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}",
+        contents.len(),
+        contents
+    );
+
+    con.write_all(response.as_bytes()).unwrap();
+    con.flush().unwrap();
 }
