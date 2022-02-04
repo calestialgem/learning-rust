@@ -16,17 +16,21 @@ fn con_req(mut con: TcpStream) {
 
     let get = b"GET / HTTP/1.1\r\n";
 
-    if buf.starts_with(get) {
-        let contents = fs::read_to_string("hello/hello.html").unwrap();
-
-        let response = format!(
-            "HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}",
-            contents.len(),
-            contents
-        );
-
-        con.write_all(response.as_bytes()).unwrap();
-        con.flush().unwrap();
+    let (status, file) = if buf.starts_with(get) {
+        ("HTTP/1.1 200 OK", "hello")
     } else {
-    }
+        ("HTTP/1.1 404 NOT FOUND", "404")
+    };
+
+    let contents = fs::read_to_string(format!("hello/{}.html", file)).unwrap();
+
+    let response = format!(
+        "{}\r\nContent-Length: {}\r\n\r\n{}",
+        status,
+        contents.len(),
+        contents
+    );
+
+    con.write_all(response.as_bytes()).unwrap();
+    con.flush().unwrap();
 }
