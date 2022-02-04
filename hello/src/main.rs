@@ -14,14 +14,19 @@ fn con_req(mut con: TcpStream) {
     let mut buf = [0; 1024];
     let len = con.read(&mut buf).unwrap();
 
-    let contents = fs::read_to_string("hello/hello.html").unwrap();
+    let get = b"GET / HTTP/1.1\r\n";
 
-    let response = format!(
-        "HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}",
-        contents.len(),
-        contents
-    );
+    if buf.starts_with(get) {
+        let contents = fs::read_to_string("hello/hello.html").unwrap();
 
-    con.write_all(response.as_bytes()).unwrap();
-    con.flush().unwrap();
+        let response = format!(
+            "HTTP/1.1 200 OK\r\nContent-Length: {}\r\n\r\n{}",
+            contents.len(),
+            contents
+        );
+
+        con.write_all(response.as_bytes()).unwrap();
+        con.flush().unwrap();
+    } else {
+    }
 }
