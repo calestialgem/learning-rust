@@ -12,5 +12,8 @@ fn main() {
 fn con_req(mut req: TcpStream) {
     let mut buf = [0; 1024];
     let len = req.read(&mut buf).unwrap();
-    println!("Request: {}", String::from_utf8_lossy(&buf[..len]));
+
+    let response = "HTTP/1.1 200 OK\r\n\r\n";
+    req.write_all(response.as_bytes()).unwrap();
+    req.flush().unwrap();
 }
