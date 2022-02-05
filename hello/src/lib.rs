@@ -46,7 +46,7 @@ impl Drop for ThreadPool {
         }
         println!("Waiting for all the workers to shut down...");
         for worker in &mut self.workers {
-            println!("Shutting down worker {}...", worker.id);
+            println!("Making sure worker {} is terminated...", worker.id);
             if let Some(thread) = worker.thread.take() {
                 thread.join().unwrap();
             }
