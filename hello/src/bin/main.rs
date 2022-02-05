@@ -8,12 +8,18 @@ use std::time::Duration;
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
     let pool = ThreadPool::new(4);
+    const MAX_REQ: u32 = 10;
+    let mut reqs = 0;
 
     for req in listener.incoming() {
         let req = req.unwrap();
         pool.execute(|| {
             con_req(req);
         });
+        reqs += 1;
+        if reqs >= MAX_REQ {
+            break;
+        }
     }
 }
 
