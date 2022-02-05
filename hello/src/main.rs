@@ -8,7 +8,9 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
     for req in listener.incoming() {
         let req = req.unwrap();
-        con_req(req);
+        thread::spawn(|| {
+            con_req(req);
+        });
     }
 }
 
