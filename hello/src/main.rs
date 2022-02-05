@@ -1,6 +1,8 @@
 use std::fs;
 use std::io::prelude::*;
 use std::net::{TcpListener, TcpStream};
+use std::thread;
+use std::time::Duration;
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
@@ -14,12 +16,18 @@ fn con_req(mut con: TcpStream) {
     let mut buf = [0; 1024];
     let len = con.read(&mut buf).unwrap();
 
-    let get = b"GET / HTTP/1.1\r\n";
+    const GET: &[u8] = b"GET / HTTP/1.1\r\n";
+    const SLEEP: &[u8] = b"GET /sleep HTTP/1.1\r\n";
+    const SUCCESS: (&str, &str) = ("HTTP/1.1 200 OK", "hello");
+    const FAILURE: (&str, &str) = ("HTTP/1.1 404 NOT FOUND", "404");
 
-    let (status, file) = if buf.starts_with(get) {
-        ("HTTP/1.1 200 OK", "hello")
+    let (status, file) = if buf.starts_with(GET) {
+        SUCCESS
+    } else if buf.starts_with(SLEEP) {
+        thread::sleep(Duration::from_secs(5));
+        SUCCESS
     } else {
-        ("HTTP/1.1 404 NOT FOUND", "404")
+        FAILURE
     };
 
     let contents = fs::read_to_string(format!("hello/{}.html", file)).unwrap();
